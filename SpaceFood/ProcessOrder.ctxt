@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=ProcessOrder
+comment0.text=\r\n\ @author\ Raavin\ Ashwath\ Sundar\ Rajan\r\n\ @version\ V1-30thOct2018\r\n
+comment1.params=company
+comment1.target=ProcessOrder(Firm)
+comment2.params=index\ consumables\ quantity
+comment2.target=void\ addconsumables(int,\ Consumables,\ int)
+comment3.params=weight
+comment3.target=double\ getPackagingCost(int)
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5

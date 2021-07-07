@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Firm
+comment0.text=\r\n\ @author\ Raavin\ Ashwath\ Sundar\ Rajan\r\n\ @version\ V1-30thOct2018\r\n
+comment1.params=FirmID\ fullName\ TaxPay\ PickupBayID
+comment1.target=Firm(java.lang.String,\ java.lang.String,\ boolean,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ FirmID()
+comment3.params=
+comment3.target=java.lang.String\ FirmName()
+comment4.params=
+comment4.target=boolean\ TaxPay()
+comment5.params=
+comment5.target=java.lang.String\ PickupBayID()
+numComments=6

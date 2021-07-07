@@ -1,0 +1,317 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+/**
+ * @author Raavin
+ * @version (a version number or a date)
+ */
+public class WarehouseTbls
+{
+    String selectedOption = "";
+    
+    Scanner Check = new Scanner(System.in);
+    
+    final public static double TO_ORBIT_COST=18127;
+    
+    private Scanner input;
+
+    
+    private Consumables food1;
+    private Consumables food2;
+    private Consumables food3;
+    private Consumables food4;
+    private Consumables food5;
+
+    private Firm company1;
+    private Firm company2;
+    private Firm company3;
+    private Firm company4;
+    private Firm company5;
+
+
+    public WarehouseTbls()
+    {
+        input=new Scanner(System.in);
+        initFoodList();
+        initCompanyList();
+    }
+
+    
+    private void initCompanyList() {
+        company1=new Firm("BFSC", "Blue Fish Space Co", true, "MERCY");
+        company2=new Firm("ECP", "Elon Cannon Personal", false, "KIT");
+        company3=new Firm("NAASA", "NAASA", false, "MERCY");
+        company4=new Firm("AARG", "AARG", false, "KAT");
+        company5=new Firm("PUB", "General Public", false, "MAIL");
+
+    }
+
+    
+    private void initFoodList() {
+        food1=new Consumables("DC", 59, "Date cake" , 134);
+        food2=new Consumables("BEEF", 49.50, "Beef sandwich" , 164);
+        food3=new Consumables("CS", 93.70, "Cheese sandwich" , 206);
+        food4=new Consumables("STRAW", 157.05, "Strawberry desert" , 177);
+        food5=new Consumables("EGG2", 77.15, "Scrambled eggs" , 112);  
+    }
+
+    private Firm getCompanyById(String id)
+    {
+        Firm c=company1;
+        if(c.getId().equalsIgnoreCase(id))
+            return c;
+        c=company2;
+        if(c.getId().equalsIgnoreCase(id))
+            return c;
+        c=company3;
+        if(c.getId().equalsIgnoreCase(id))
+            return c;
+        c=company4;
+        if(c.getId().equalsIgnoreCase(id))
+            return c;
+        c=company5;
+        if(c.getId().equalsIgnoreCase(id))
+            return c;
+        return null;
+    }
+    
+        public void startFunctionality()
+    {
+          Scanner in = new Scanner(System.in);
+     do
+     {        
+        System.out.println("" + selectedOption);
+        
+        if (selectedOption.equalsIgnoreCase("C")) {displayCompanyTable(); selectedOption = in.nextLine();}
+        if (selectedOption.equalsIgnoreCase("Q")) {System.exit(0); selectedOption= in.nextLine();}
+        if (selectedOption.equalsIgnoreCase("F")) {displayFoodTable(); selectedOption = in.nextLine();}
+        if (selectedOption.equalsIgnoreCase("QU")) {generateQuote(); selectedOption = in.nextLine();}
+        if (selectedOption.equalsIgnoreCase("QF")) {System.out.println(); writeToFile(); selectedOption = in.nextLine();}
+        
+        else{System.out.printf(""); menu(); selectedOption = in.nextLine();}
+     } while (selectedOption.equalsIgnoreCase("Q")); 
+    
+     } 
+            
+        
+    
+
+    
+    private void writeToFile() {
+        String file;
+        System.out.println("Enter Ordering Company Id: ");
+        String id=input.nextLine().toUpperCase();
+        System.out.println("Company Code is:"+id);
+        Firm company=getCompanyById(id);
+        if(company==null)
+        {
+            System.out.println("Company do not exist...");
+            return;
+        }
+        ProcessOrder order = new ProcessOrder(company);
+        Consumables food=food1;
+        int quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(0,food,quantity);
+
+        food=food2;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(1,food,quantity);
+
+        food=food3;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(2,food,quantity);
+
+        food=food4;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(3,food,quantity);
+
+
+        food=food5;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(4,food,quantity);
+
+
+        System.out.println("Enter the file name to write quote to:");
+        file=input.nextLine();
+        System.out.println("You entered : "+file);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write(order.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("file "+file+" written");
+    }
+
+    
+    private void generateQuote() {
+        System.out.println("Enter Ordering Company Id: ");
+        String id=input.nextLine().toUpperCase();
+        System.out.println("Company Code is:"+id);
+        Firm company=getCompanyById(id);
+        if(company==null)
+        {
+            System.out.println("Company do not exist...");
+            return;
+        }
+        ProcessOrder order = new ProcessOrder(company);
+        Consumables food=food1;
+        int quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(0,food,quantity);
+
+        food=food2;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(1,food,quantity);
+
+        food=food3;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(2,food,quantity);
+
+        food=food4;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(3,food,quantity);
+
+
+        food=food5;
+        quantity=getFoodQuantity("Please enter number of "+food.getId()+" "+food.getDescription()+":");
+        if(quantity>24)
+        {
+            System.out.println("Error Cant order more than 24");
+            return;
+        }
+        order.addFood(4,food,quantity);
+
+
+        System.out.println(order);
+
+
+    }
+
+    
+    private int getFoodQuantity(String string) {
+        try
+        {
+            System.out.println(string);
+            int q=Integer.parseInt(input.nextLine());
+            if(q<0)
+            {
+                System.out.println("Please enter a positive value");
+                return getFoodQuantity(string);
+            }
+            return q; 
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter a valid number");
+            return getFoodQuantity(string);
+        }
+    }
+
+    
+    private void displayFoodTable() {
+        String format="%-11s | %-23s | %-7s | %-11s";
+        String format1="%11s | %-23s | %7d | $%-11.2f";
+        String str=String.format(format, "Food Id    ","Food name ","Weight ","Cost");
+        System.out.println(str);
+        System.out.println("------------+-------------------------+---------+---------+");
+        Consumables f=food1;
+        System.out.println(String.format(format1,f.getId(),f.getDescription(),f.getWeight(),f.getCost()));
+        f=food2;
+        System.out.println(String.format(format1,f.getId(),f.getDescription(),f.getWeight(),f.getCost()));
+        f=food3;
+        System.out.println(String.format(format1,f.getId(),f.getDescription(),f.getWeight(),f.getCost()));
+        f=food4;
+        System.out.println(String.format(format1,f.getId(),f.getDescription(),f.getWeight(),f.getCost()));
+        f=food5;
+        System.out.println(String.format(format1,f.getId(),f.getDescription(),f.getWeight(),f.getCost()));
+
+        System.out.println("------------+-------------------------+---------+---------+");
+
+
+    }
+
+    
+    private void displayCompanyTable() {
+        String format="%-11s | %-23s | %-10s | %-11s";
+        String format1="%11s | %-23s | %10s | %10s";
+
+        String str=String.format(format, "Company Id","Company name","Tax Exempt","Pickup Bay");
+        System.out.println(str);
+        System.out.println("------------+-------------------------+------------+-----------+");
+        Firm c=company1;
+        System.out.println(String.format(format1,c.getId(),c.getFullName(),c.isPayTax()?"true":"false",c.getPickupBayId()));
+        c=company2;
+        System.out.println(String.format(format1,c.getId(),c.getFullName(),c.isPayTax()?"true":"false",c.getPickupBayId()));
+        c=company3;
+        System.out.println(String.format(format1,c.getId(),c.getFullName(),c.isPayTax()?"true":"false",c.getPickupBayId()));
+        c=company4;
+        System.out.println(String.format(format1,c.getId(),c.getFullName(),c.isPayTax()?"true":"false",c.getPickupBayId()));
+        c=company5;
+        System.out.println(String.format(format1,c.getId(),c.getFullName(),c.isPayTax()?"true":"false",c.getPickupBayId()));
+        
+        
+		System.out.println("------------+-------------------------+------------+-----------+");
+
+	}
+
+	
+	private String menu() {
+		System.out.println("Space Food Program Menu");
+		System.out.println();
+		System.out.println("Q - Exit/Quit");
+		System.out.println("C - Company Table");
+		System.out.println("F - Food Table");
+		System.out.println("QU - Generate Quote");
+		System.out.println("QF - Generate Quote to fileSelect Option:");
+		String choice=input.nextLine();
+		System.out.println("You Entered : "+choice);
+		return choice.toUpperCase();
+	}
+}

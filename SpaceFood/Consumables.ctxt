@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Consumables
+comment0.text=\r\n\ @author\ Raavin\ Ashwath\ Sundar\ Rajan\r\n\ @version\ V1-30thOct2018\r\n
+comment1.params=ConsumableID\ getAmount\ getCategory\ ConsumableWeight
+comment1.target=Consumables(java.lang.String,\ double,\ java.lang.String,\ int)
+comment2.params=
+comment2.target=java.lang.String\ ConsumableID()
+comment3.params=
+comment3.target=double\ getAmount()
+comment4.params=
+comment4.target=java.lang.String\ getCategory()
+comment5.params=
+comment5.target=int\ ConsumableWeight()
+numComments=6
